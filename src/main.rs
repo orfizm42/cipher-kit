@@ -305,21 +305,9 @@ impl eframe::App for CipherApp {
     }
 }
 
-// ── フォント読み込み ────────────────────────────────────────────
+// ── フォント読み込み（バイナリ同梱）────────────────────────────
 fn load_cjk_font() -> Option<Vec<u8>> {
-    let paths = [
-        "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
-        "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc",
-        "/usr/share/fonts/OTF/NotoSansCJK-Regular.ttc",
-        "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
-        "/usr/share/fonts/google-noto-cjk/NotoSansCJK-Regular.ttc",
-    ];
-    for path in &paths {
-        if let Ok(data) = std::fs::read(path) {
-            return Some(data);
-        }
-    }
-    None
+    Some(include_bytes!("../assets/NotoSansJP.ttf").to_vec())
 }
 
 fn main() -> eframe::Result<()> {
